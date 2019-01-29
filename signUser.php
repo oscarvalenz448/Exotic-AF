@@ -1,3 +1,9 @@
+<?php
+session_start();
+if(!isset($_SESSION["user_id"]) || $_SESSION["user_id"] ==null){
+  print "<script>alert(\"Su Sesión expiró por favor ingrese de nuevo aquí!\");window.location='home.php';</script>";
+}
+?>
 <!DOCTYPE html>
 <html lang="es">
 <head>
@@ -155,7 +161,8 @@
                 </div>
                 <div class="col-sm-6 col-md-6 col-lg-6">
                     <?php
-                        $sql = "SELECT * FROM firmas WHERE usuario_id=2";
+                        $uid = $_SESSION["user_id"];
+                        $sql = "SELECT * FROM firmas WHERE user_id='$uid'";
                             $result = $conn->query($sql);
                             if ($result->num_rows > 0) {
                                 // output data of each row
@@ -169,6 +176,7 @@
                                 }
                             } else {
                                 echo "<h3>Ingresa tu Firma</h3>";
+                                
                             }
                             $conn->close();
                     ?>
