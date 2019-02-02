@@ -18,11 +18,11 @@
   <form action="session.php" method="POST">
     <div class="form-group">
       <label for="email">Correo:</label>
-      <input type="text" class="form-control" id="email" placeholder="Ingresa tu Correo" name="username">
+      <input type="text" class="form-control" id="email" placeholder="Ingresa tu Correo" name="username" required>
     </div>
     <div class="form-group">
       <label for="pwd">Contraseña:</label>
-      <input type="password" class="form-control" id="pwd" placeholder="Ingresa tu Contraseña" name="pass">
+      <input type="password" class="form-control" id="pwd" placeholder="Ingresa tu Contraseña" name="pass" required>
     </div>
     <button type="submit" class="btn btn-default">Ingresar</button>
   </form>

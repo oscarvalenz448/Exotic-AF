@@ -15,5 +15,6 @@ if (password_verify($pass, $pass2 )) {
 	$username = $_POST['username'];
 	$password_hash = $_POST['pass'];
 	
+	$sql = "SELECT * FROM user WHERE email='$username' OR username='$username'";
 
 ?>

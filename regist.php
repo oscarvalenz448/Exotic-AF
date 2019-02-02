@@ -21,19 +21,19 @@
   <form action="addSession.php" method="POST">
     <div class="form-group">
       <label for="text">Nombre Completo:</label>
-      <input type="text" class="form-control" id="text" placeholder="Ingresa tu Nombre Completo" name="fullName">
+      <input type="text" class="form-control" id="text" placeholder="Ingresa tu Nombre Completo" name="fullName" required>
     </div>
     <div class="form-group">
       <label for="name">Usuario:</label>
-      <input type="text" class="form-control"  placeholder="Segunda forma de ingresar" name="username" maxlength="20">
+      <input type="text" class="form-control"  placeholder="Segunda forma de ingresar" name="username" maxlength="20" required>
     </div>
     <div class="form-group">
       <label for="email">Correo:</label>
-      <input type="email" class="form-control" id="email" placeholder="Ingresa tu Correo" name="email">
+      <input type="email" class="form-control" id="email" placeholder="Ingresa tu Correo" name="email" required>
     </div>
     <div class="form-group">
       <label for="email">Contraseña:</label>
-      <input type="password" class="form-control" id="email" placeholder="Ingresa tu Contraseña" name="pass">
+      <input type="password" class="form-control" id="email" placeholder="Ingresa tu Contraseña" name="pass" required>
     </div>
     <div class="form-group">
       <label for="email">Nivel de Usuario:</label>

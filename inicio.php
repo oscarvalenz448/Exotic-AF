@@ -13,6 +13,7 @@ if(!isset($_SESSION["user_id"]) || $_SESSION["user_id"] ==null){
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+  <link rel='stylesheet' href='https://use.fontawesome.com/releases/v5.7.0/css/all.css' integrity='sha384-lZN37f5QGtY3VHgisS14W3ExzMWZxybE1SJSEsQp9S+oqd12jhcu+A56Ebc1zFSJ' crossorigin='anonymous'>
 </head>
     <body>
         <?php
@@ -37,6 +38,7 @@ if(!isset($_SESSION["user_id"]) || $_SESSION["user_id"] ==null){
                             <th>Modelo</th>
                             <th>Estado</th>
                             <th>Locación</th>
+                            <th>Acción</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -45,7 +47,6 @@ if(!isset($_SESSION["user_id"]) || $_SESSION["user_id"] ==null){
                             $result = $conn->query($sql);
                             if ($result->num_rows > 0) {
                                 $i=1;//Este  es el contador #equipos
-                                // output data of each row
                                 while($row = $result->fetch_assoc()) {
                                     echo "<tr>";
                                     echo "<td>".$i++."</td>";
@@ -57,6 +58,9 @@ if(!isset($_SESSION["user_id"]) || $_SESSION["user_id"] ==null){
                                     echo "<td>".$row["modelo"]."</td>";
                                     echo "<td>".$row["estado"]."</td>";
                                     echo "<td>".substr($row["nombre"], 3, 3)."</td>";
+                                    echo "<td><a href='viewAssets.php?id=". $row['id'] ."'><i class='   fas fa-poo' style='font-size:24px'></i></a>
+                                        <a href='viewAssets.php?id=". $row['id'] ."'><i class=' fas fa-angry' style='font-size:24px'></i></a>
+                                          </td>";
                                     echo "</tr>";
                                 }
                             } else {

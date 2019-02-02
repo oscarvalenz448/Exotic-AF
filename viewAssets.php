@@ -1,3 +1,9 @@
+<?php
+session_start();
+if(!isset($_SESSION["user_id"]) || $_SESSION["user_id"] ==null){
+  print "<script>alert(\"Su Sesión expiró por favor ingrese de nuevo aquí!\");window.location='home.php';</script>";
+}
+?> 
 <!DOCTYPE html>
 <html lang="es">
 <head>
@@ -19,7 +25,8 @@
  <!--Inicio Contenido-->
         <?php
             include ('conn.php');
-        ?><button id="boton-descarga" class="btn btn-primary">Descargar imagen</button> 
+        ?>
+        <button id="boton-descarga" class="btn btn-primary">Descargar imagen</button> 
     <div class="container" id="imagen">
 <!--Inicio de Titulos-->      
         <div class="row" >
@@ -47,16 +54,25 @@
 <!--Inicio de Img-->      
         <div class="row">
             <div class="col-xs-6 col-sm-4 col-md-4 col-lg-4">   
-                <img src="icons/aio.jpg" class="img-thumbnail" alt="Cinque Terre" style="width:400px;height:250px;">
+                <img src="icons/aio.jpg" class="img-thumbnail" alt="Cinque Terre" style="width:400px;height:250px;border-color:black;">
             </div>
             <div class="col-xs-6 col-sm-8 col-md-8 col-lg-8">
                 <p><b>Tipo de Equipo</b></p>
-                <div class="panel panel-default">
+    <!--Apertura Impresión de equipo-->                
+                <div class="panel panel-default" style="border-color:black;">
                     <div class="panel-body">
-                        <p align="center">Test</p>
-                        <p align="center">test2</p>  
+            <?php
+                include ('conn.php');
+                $workStation = $_GET['id'];
+                $sql = "SELECT id,nombre,modelo,tipo,no_serie,direccion_ip FROM equipos WHERE id='$workStation'";
+                $result = mysqli_query($conn, $sql);
+            ?>
+            <?php
+                while($row = mysqli_fetch_array($result)) { 
+            ?>
+                        <p align="center">1 <?php echo $row['tipo']; ?> <?php echo $row['modelo']; ?></p>  
                     </div>
-                </div>
+                </div>              
             </div>
         </div>
 <!--Cierre de imag-->
@@ -65,12 +81,12 @@
         <div class="row">
             <div class="col-sm-12 col-md-12 col-lg-12"> 
                 <p><b>Datos del Equipo</b></p>
-                 <div class="panel panel-default">
+                 <div class="panel panel-default" style="border-color:black;">
                     <div class="panel-body">
 <!----Inicio de N° etiqueta---->
                         <div class="row">
                             <div class="col-sm-12 col-md-12 col-lg-12">
-                                <div class="col-xs-3 col-sm-3 col-md-3 col-lg-3">
+                                <div class="col-xs-3 col-sm-3 col-md-3 col-lg-3" >
                                     <div>
                                         <div class="panel-body">
                                             <p><b>N° Etiqueta:</b></p>
@@ -78,9 +94,9 @@
                                     </div>
                                 </div>
                                 <div class="col-xs-3 col-sm-3 col-md-3 col-lg-3">
-                                    <div class="panel panel-default">
+                                    <div class="panel panel-default" style="border-color:black;">
                                         <div class="panel-body">
-                                            Test
+                                            N/A
                                         </div>
                                     </div>
                                 </div>
@@ -92,14 +108,14 @@
                                     </div>
                                 </div>
                                 <div class="col-xs-3 col-sm-3 col-md-3 col-lg-3">
-                                    <div class="panel panel-default">
+                                    <div class="panel panel-default" style="border-color:black;">
                                         <div class="panel-body">
-                                            Test
+                                            <?php echo $row['modelo']; ?>
                                         </div>
                                     </div>
                                 </div>
                             </div>
-                        </div>
+                        </div>            
 <!----Cierre de N° etiqueta---->
 <!----Inicio de Departamento---->
                         <div class="row">
@@ -112,9 +128,9 @@
                                     </div>
                                 </div>
                                 <div class="col-xs-3 col-sm-3 col-md-3 col-lg-3">
-                                    <div class="panel panel-default">
+                                    <div class="panel panel-default" style="border-color:black;">
                                         <div class="panel-body">
-                                            Test
+                                            Exotic Travelers Club
                                         </div>
                                     </div>
                                 </div>
@@ -126,9 +142,9 @@
                                     </div>
                                 </div>
                                 <div class="col-xs-3 col-sm-3 col-md-3 col-lg-3">
-                                    <div class="panel panel-default">
+                                    <div class="panel panel-default" style="border-color:black;">
                                         <div class="panel-body">
-                                            Test
+                                            <?php echo $row['no_serie']; ?>
                                         </div>
                                     </div>
                                 </div>
@@ -146,9 +162,9 @@
                                     </div>
                                 </div>
                                 <div class="col-xs-9 col-sm-9 col-md-9 col-lg-9">
-                                    <div class="panel panel-default">
+                                    <div class="panel panel-default" style="border-color:black;">
                                         <div class="panel-body">
-                                            Test
+                                            <?php echo strtoupper(substr($row['nombre'],3,3)); ?>
                                         </div>
                                     </div>
                                 </div>
@@ -166,9 +182,9 @@
                                     </div>
                                 </div>
                                 <div class="col-xs-9 col-sm-9 col-md-9 col-lg-9">
-                                    <div class="panel panel-default">
+                                    <div class="panel panel-default" style="border-color:black;">
                                         <div class="panel-body">
-                                            Test
+                                            <?php echo $row['id']; ?>
                                         </div>
                                     </div>
                                 </div>
@@ -186,9 +202,9 @@
                                     </div>
                                 </div>
                                 <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4">
-                                    <div class="panel panel-default">
+                                    <div class="panel panel-default" style="border-color:black;">
                                         <div class="panel-body">
-                                            Test
+                                            <?php echo $row['id']; ?>
                                         </div>
                                     </div>
                                 </div>
@@ -200,9 +216,9 @@
                                     </div>
                                 </div>
                                 <div class="col-xs-2 col-sm-2 col-md-2 col-lg-2">
-                                    <div class="panel panel-default">
+                                    <div class="panel panel-default" style="border-color:black;">
                                         <div class="panel-body">
-                                            Test
+                                            <?php echo $row['direccion_ip']; ?>
                                         </div>
                                     </div>
                                 </div>
@@ -213,12 +229,14 @@
                 </div>
             </div>
         </div>
+            <?php } ?>  
+    <!--Cierre Impresión de equipo-->
 <!--Cierre de Datos Equipo-->
 <!--Inicio de  Datos autoriza-->
         <div class="row">
             <div class="col-sm-12 col-md-12 col-lg-12">
                 <p><b>Datos de Quien autoriza la Baja</b></p>
-                <div class="panel panel-default">
+                <div class="panel panel-default" style="border-color:black;">
                     <div class="panel-body">
 <!----Inicio de  Entregado por---->
                         <div class="row">
@@ -231,9 +249,9 @@
                                     </div>
                                 </div>
                                 <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4">
-                                    <div class="panel panel-default">
+                                    <div class="panel panel-default" style="border-color:black;">
                                         <div class="panel-body">
-                                            Test
+                                            Arlene Salazar
                                         </div>
                                     </div>
                                 </div>
@@ -245,9 +263,9 @@
                                     </div>
                                 </div>
                                 <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4">
-                                    <div class="panel panel-default">
+                                    <div class="panel panel-default" style="border-color:black;">
                                         <div class="panel-body">
-                                            Test
+                                            &nbsp;
                                         </div>
                                     </div>
                                 </div>
@@ -265,9 +283,9 @@
                                     </div>
                                 </div>
                                 <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4">
-                                    <div class="panel panel-default">
+                                    <div class="panel panel-default" style="border-color:black;">
                                         <div class="panel-body">
-                                            Test
+                                            Contralora
                                         </div>
                                     </div>
                                 </div>
@@ -279,9 +297,9 @@
                                     </div>
                                 </div>
                                 <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4">
-                                    <div class="panel panel-default">
+                                    <div class="panel panel-default" style="border-color:black;">
                                         <div class="panel-body">
-                                            Test
+                                            &nbsp;
                                         </div>
                                     </div>
                                 </div>
@@ -299,9 +317,9 @@
                                     </div>
                                 </div>
                                 <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4">
-                                    <div class="panel panel-default">
+                                    <div class="panel panel-default" style="border-color:black;">
                                         <div class="panel-body">
-                                            Test
+                                            <?php $hoy = date("m/d/y");  echo $hoy;?>
                                         </div>
                                     </div>
                                 </div>
@@ -313,14 +331,15 @@
                                     </div>
                                 </div>
                                 <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4">
-                                    <div class="panel panel-default">
+                                    <div class="panel panel-default" style="border-color:black;">
                                         <div class="panel-body">
-                                            Test
+                                            &nbsp;
                                         </div>
                                     </div>
                                 </div>
                             </div>
                         </div>
+
 <!----Cierre de Fecha autoriza---->
                     </div>
                 </div>
@@ -333,15 +352,62 @@
                         <div class="row">
                             <div class="col-sm-12 col-md-12 col-lg-12">
                                 <div class="col-xs-6 col-sm-4 col-md-4 col-lg-4">
-                                    <img src="icons/aio.jpg" style="width:100px;height:50px;">
+                                     <?php
+                        include ('conn.php');             
+                        $uid = $_SESSION["user_id"];
+                        $sql = "SELECT * FROM firmas WHERE user_id='$uid'";
+                            $result = $conn->query($sql);
+                            if ($result->num_rows > 0) {
+                                // output data of each row
+                                while($row = $result->fetch_assoc()) {
+                                    echo '
+                                          <img src='.$row["firma"].' class="img-thumbnail" alt="Cinque Terre" style="width:200px;height:80px;">';
+                                    
+                                                  }
+                            } else {
+                                echo "<h3>Ingresa tu Firma</h3>";
+                            }
+                            $conn->close();
+                    ?>
                                     <p style="text-decoration: overline;"><b>Firma de Encargado de Activo Fijo</b></p>  
                                 </div>
                                 <div class="col-xs-6 col-sm-4 col-md-4 col-lg-4">
-                                    <img src="icons/pexotic.png">
+                                                 <?php
+                        include ('conn.php');             
+                        $uid = 4;
+                        $sql = "SELECT * FROM firmas WHERE user_id='$uid'";
+                            $result = $conn->query($sql);
+                            if ($result->num_rows > 0) {
+                                // output data of each row
+                                while($row = $result->fetch_assoc()) {
+                                    echo '
+                                          <img src='.$row["firma"].' class="img-thumbnail" alt="Cinque Terre" style="width:200px;height:80px;">';
+                                    
+                                                  }
+                            } else {
+                                echo "<h3>Ingresa tu Firma</h3>";
+                            }
+                            $conn->close();
+                    ?>
                                     <p style="text-decoration: overline;"><b>Firma del Contralor General:</b></p>
                                 </div>
                                 <div class="col-xs-12 col-sm-4 col-md-4 col-lg-4">
-                                    <img src="icons/pexotic.png">
+                        <?php
+                        include ('conn.php');             
+                        $uid = 3;
+                        $sql = "SELECT * FROM firmas WHERE user_id='$uid'";
+                            $result = $conn->query($sql);
+                            if ($result->num_rows > 0) {
+                                // output data of each row
+                                while($row = $result->fetch_assoc()) {
+                                    echo '                                          <img src='.$row["firma"].' class="img-thumbnail" alt="Cinque Terre" style="width:200px;height:80px;">';
+                                    
+                                                  }
+                            } else {
+                                echo "<h3>Ingresa tu Firma</h3>";
+                            }
+                            $conn->close();
+                    ?>
                                     <p style="text-decoration: overline;"><b>Firma del Director del Hotel:</b></p>
                                 </div>
                             </div>
@@ -352,15 +418,63 @@
                         <div class="row">
                             <div class="col-sm-12 col-md-12 col-lg-12">
                                 <div class="col-xs-6 col-sm-4 col-md-4 col-lg-4">
-                                    <img src="icons/pexotic.png">
+                                                               <?php
+                        include ('conn.php');             
+                        $uid = 0;
+                        $sql = "SELECT * FROM firmas WHERE user_id='$uid'";
+                            $result = $conn->query($sql);
+                            if ($result->num_rows > 0) {
+                                // output data of each row
+                                while($row = $result->fetch_assoc()) {
+                                    echo '
+                                          <img src='.$row["firma"].' class="img-thumbnail" alt="Cinque Terre" style="width:200px;height:80px;">';
+                                    
+                                                  }
+                            } else {
+                                echo "<h3>Ingresa tu Firma</h3>";
+                            }
+                            $conn->close();
+                    ?>
                                     <p style="text-decoration: overline;"><b>Firma de Contralor Activos Fijo y Proyectos</b></p>  
                                 </div>
                                 <div class="col-xs-6 col-sm-4 col-md-4 col-lg-4">
-                                    <img src="icons/pexotic.png">
+                                                               <?php
+                        include ('conn.php');             
+                        $uid = 0;
+                        $sql = "SELECT * FROM firmas WHERE user_id='$uid'";
+                            $result = $conn->query($sql);
+                            if ($result->num_rows > 0) {
+                                // output data of each row
+                                while($row = $result->fetch_assoc()) {
+                                    echo '
+                                          <img src='.$row["firma"].' class="img-thumbnail" alt="Cinque Terre" style="width:200px;height:80px;">';
+                                    
+                                                  }
+                            } else {
+                                echo "<h3>Ingresa tu Firma</h3>";
+                            }
+                            $conn->close();
+                    ?>
                                     <p style="text-decoration: overline;"><b>Firma del Contralor Corporativo</b></p>
                                 </div>
                                 <div class="col-xs-12 col-sm-4 col-md-4 col-lg-4">
-                                    <img src="icons/pexotic.png">
+                                                               <?php
+                        include ('conn.php');             
+                        $uid = 0;
+                        $sql = "SELECT * FROM firmas WHERE user_id='$uid'";
+                            $result = $conn->query($sql);
+                            if ($result->num_rows > 0) {
+                                // output data of each row
+                                while($row = $result->fetch_assoc()) {
+                                    echo '
+                                          <img src='.$row["firma"].' class="img-thumbnail" alt="Cinque Terre" style="width:200px;height:80px;">';
+                                    
+                                                  }
+                            } else {
+                                echo "<h3>Ingresa tu Firma</h3>";
+                            }
+                            $conn->close();
+                    ?>
                                     <p style="text-decoration: overline;"><b>Firma del Propietario</b></p>
                                 </div>
                             </div>
@@ -371,6 +485,15 @@
 </div> 
     </body>
 </html>
+<?php
+                include ('conn.php');
+                $workStation = $_GET['id'];
+                $sql = "SELECT id,nombre,modelo,tipo,no_serie,direccion_ip FROM equipos WHERE id='$workStation'";
+                $result = mysqli_query($conn, $sql);
+            ?>
+            <?php
+                while($row = mysqli_fetch_array($result)) { 
+            ?>
 <script >
     function downloadCanvas(canvasId, filename) {
     // Obteniendo la etiqueta la cual se desea convertir en imagen
@@ -405,6 +528,7 @@
 }
 // Haciendo la conversión y descarga de la imagen al presionar el botón
 $('#boton-descarga').click(function() {
-    downloadCanvas('imagen', 'imagen.png');
+    downloadCanvas('imagen', '<?php echo $row['nombre']; ?>.png');
 });
 </script>
+<?php } ?>  

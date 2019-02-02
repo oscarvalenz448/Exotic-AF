@@ -142,7 +142,6 @@ if(!isset($_SESSION["user_id"]) || $_SESSION["user_id"] ==null){
                                     valor += posicionX(obj.offsetParent);
                                 return valor;
                             }
-
                             /* Limpiar pizarra */
                         function LimpiarTrazado() 
                             {
@@ -150,7 +149,6 @@ if(!isset($_SESSION["user_id"]) || $_SESSION["user_id"] ==null){
                                 contexto.fillStyle = colorDeFondo;
                                 contexto.fillRect(0, 0, anchoCanvas, altoCanvas);
                             }
-
                             /* Enviar el trazado */
                         function GuardarTrazado() 
                             {
@@ -176,7 +174,6 @@ if(!isset($_SESSION["user_id"]) || $_SESSION["user_id"] ==null){
                                 }
                             } else {
                                 echo "<h3>Ingresa tu Firma</h3>";
-                                
                             }
                             $conn->close();
                     ?>
